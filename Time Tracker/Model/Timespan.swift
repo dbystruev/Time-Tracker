@@ -9,13 +9,13 @@
 import Foundation
 
 /// Structure which defines the timespan with start and end time
-struct Timespan {
+struct Timespan: Codable {
     
     /// Enum which defines the current status of a timespan
     ///
     /// - running: timespan is currently counting
     /// - stopped: timespan not started or alredy finished
-    enum Status {
+    enum Status: Int, Codable {
         case running
         case stopped
     }

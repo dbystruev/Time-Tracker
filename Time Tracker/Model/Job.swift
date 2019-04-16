@@ -9,7 +9,7 @@
 import Foundation
 
 /// Structure which defines a single job with multiple timespans
-struct Job {
+struct Job: Codable {
     /// Job's name
     var name: String
     
@@ -62,6 +62,24 @@ extension Array where Element == Job {
     /// True if at least one job is running
     var areRunning: Bool {
         return reduce(false) { $0 || $1.isRunning }
+    }
+    
+    /// Encoded with property list encoder
+    var encoded: Data? {
+        let encoder = PropertyListEncoder()
+        return try? encoder.encode(self)
+    }
+    
+    /// Initialize from data encoded with property list encoder
+    ///
+    /// - Parameter data: encoded data
+    init?(from data: Data?) {
+        guard let data = data else { return nil }
+        
+        let decoder = PropertyListDecoder()
+        guard let jobs = try? decoder.decode([Element].self, from: data) else { return nil }
+        
+        self = jobs
     }
     
     /// Create and start a new job

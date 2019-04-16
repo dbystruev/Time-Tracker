@@ -12,17 +12,39 @@ class ViewController: UIViewController {
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     
+    /// Permanet storage key for UserDefaults
+    let storageKey = "TimeTrackerKey"
+    
     /// Manager to setup the cells
     let manager = CellManager()
     
     /// Timer to update the table once a second
     var timer: Timer!
     
+    /// Flag to indicate that permanent storage data were just loaded
+    var justLoaded = false
+    
     /// Jobs data source
-    var jobs = [Job]()
+    var jobs = [Job]() {
+        didSet {
+            if justLoaded {
+                justLoaded = false
+            } else {
+                if let encoded = jobs.encoded {
+                    UserDefaults.standard.set(encoded, forKey: storageKey)
+                }
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let data = UserDefaults.standard.data(forKey: storageKey)
+        if let jobs = [Job](from: data) {
+            justLoaded = true
+            self.jobs = jobs
+        }
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             self.updateTable()
