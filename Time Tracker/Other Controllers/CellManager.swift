@@ -11,12 +11,16 @@ import UIKit
 class CellManager {
     func configure(_ cell: UITableViewCell, with timespan: Timespan) {
         var timespan = timespan
+        var formattedTime = timespan.startTime.formatted
         
         if case .running = timespan.status {
             timespan.endTime = Date()
+            formattedTime = "started \(formattedTime)"
+        } else {
+            formattedTime += " — \(timespan.endTime.formatted(with: timespan.startTime))"
         }
         
-        cell.textLabel?.text = timespan.formattedDuration
+        cell.textLabel?.text = "\(timespan.formattedDuration) (\(formattedTime))"
         cell.detailTextLabel?.text = timespan.name
     }
 }
