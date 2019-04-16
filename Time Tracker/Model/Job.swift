@@ -84,11 +84,15 @@ extension Array where Element == Job {
     
     /// Create and start a new job
     mutating func startNewJob() {
-        // stop all jobs, create and start a new one
-        stop()
-        var job = Job(name: "Job # \(count + 1)")
-        job.startNewTimespan()
-        append(job)
+        // create and start a new job
+        if let lastJob = last, lastJob.timespans.isEmpty {
+            self[count - 1].startNewTimespan()
+        } else {
+            var job = Job(name: "Job # \(count + 1)")
+            job.startNewTimespan()
+            append(job)
+        }
+        
     }
     
     /// Stop all jobs
@@ -96,5 +100,10 @@ extension Array where Element == Job {
         for index in 0 ..< count {
             self[index].stop()
         }
+    }
+    
+    /// Remove jobs which have 
+    mutating func removeEmptyJobs() {
+        
     }
 }

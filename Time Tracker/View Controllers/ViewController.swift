@@ -46,13 +46,20 @@ class ViewController: UIViewController {
             self.jobs = jobs
         }
         
+        navigationItem.leftBarButtonItem = editButtonItem
+        
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             self.updateTable()
         }
     }
     
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.setEditing(editing, animated: animated)
+    }
+    
     func updateTable() {
-        if jobs.areRunning {
+        if jobs.areRunning && !isEditing {
             var pathsToUpdate = [IndexPath]()
             
             for (section, job) in jobs.enumerated() {
@@ -118,6 +125,28 @@ extension ViewController: UITableViewDelegate {
         }
         
         tableView.reloadSections([indexPath.section], with: .automatic)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        switch editingStyle {
+            
+        case .delete:
+            let section = indexPath.section
+            let row = indexPath.row
+            
+            jobs[section].timespans.remove(at: row)
+            
+            if jobs[section].timespans.isEmpty {
+                jobs.remove(at: section)
+                tableView.deleteSections([section], with: .fade)
+            } else {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            
+        default:
+            break
+        }
     }
 }
 
