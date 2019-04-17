@@ -14,6 +14,8 @@
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="2JY-oz-6ZV"/>
                 <outlet property="plusButton" destination="NyY-W6-aLS" id="c9h-QG-vVZ"/>
+                <outlet property="singleTapRecognizer" destination="BBk-Io-thj" id="R20-MA-MZT"/>
+                <outlet property="titleField" destination="MZr-KZ-mbz" id="jUB-lK-lnc"/>
                 <outlet property="titleLabel" destination="2Uq-0o-mge" id="Hli-xq-BFh"/>
             </connections>
         </placeholder>
@@ -22,13 +24,18 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Uq-0o-mge">
-                    <rect key="frame" x="20" y="0.0" width="47.5" height="44"/>
+                <label opaque="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Uq-0o-mge">
+                    <rect key="frame" x="20" y="0.0" width="510" height="44"/>
+                    <gestureRecognizers/>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="xct-La-VkE" appends="YES" id="Ltx-lK-C1b"/>
+                        <outletCollection property="gestureRecognizers" destination="iRU-iq-NXJ" appends="YES" id="3VT-lO-2Rd"/>
+                    </connections>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NyY-W6-aLS" customClass="SectionButton" customModule="Time_Tracker" customModuleProvider="target">
+                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NyY-W6-aLS">
                     <rect key="frame" x="550" y="0.0" width="30" height="44"/>
                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                     <state key="normal" title="+"/>
@@ -36,20 +43,55 @@
                         <action selector="plusButtonPressed:" destination="-1" eventType="touchUpInside" id="H3F-hO-ilE"/>
                     </connections>
                 </button>
+                <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MZr-KZ-mbz">
+                    <rect key="frame" x="20" y="8" width="510" height="28"/>
+                    <gestureRecognizers/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <action selector="editingEnded:" destination="-1" eventType="editingDidEnd" id="MNs-bs-gDt"/>
+                        <action selector="editingEnded:" destination="-1" eventType="primaryActionTriggered" id="hWn-8W-2o9"/>
+                        <action selector="editingEnded:" destination="-1" eventType="editingDidEndOnExit" id="y9y-y7-MvO"/>
+                    </connections>
+                </textField>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="2Uq-0o-mge" secondAttribute="bottom" id="0Dv-3s-0mO"/>
+                <constraint firstItem="MZr-KZ-mbz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="4c6-00-LdQ"/>
                 <constraint firstItem="2Uq-0o-mge" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="83h-Ka-OUt"/>
+                <constraint firstItem="MZr-KZ-mbz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="CqN-Ds-680"/>
+                <constraint firstItem="NyY-W6-aLS" firstAttribute="leading" secondItem="MZr-KZ-mbz" secondAttribute="trailing" constant="20" id="SeY-Mk-KMc"/>
                 <constraint firstItem="2Uq-0o-mge" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="Spu-kX-WRb"/>
                 <constraint firstItem="NyY-W6-aLS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ZXb-6S-lcE"/>
                 <constraint firstAttribute="bottom" secondItem="NyY-W6-aLS" secondAttribute="bottom" id="itn-PW-Ep5"/>
-                <constraint firstItem="NyY-W6-aLS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2Uq-0o-mge" secondAttribute="trailing" id="jkl-Ma-YJ6"/>
+                <constraint firstItem="NyY-W6-aLS" firstAttribute="leading" secondItem="2Uq-0o-mge" secondAttribute="trailing" constant="20" id="jkl-Ma-YJ6"/>
                 <constraint firstAttribute="trailingMargin" secondItem="NyY-W6-aLS" secondAttribute="trailing" id="qMy-LC-aNM"/>
+                <constraint firstAttribute="bottom" secondItem="MZr-KZ-mbz" secondAttribute="bottom" constant="8" id="yek-Mp-RUe"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="BBk-Io-thj" appends="YES" id="7Dd-hb-12c"/>
+            </connections>
             <point key="canvasLocation" x="228" y="-218"/>
         </view>
+        <tapGestureRecognizer numberOfTapsRequired="2" id="xct-La-VkE">
+            <connections>
+                <action selector="beginEditingGestureRecognized:" destination="-1" id="Vyl-wT-Wsu"/>
+            </connections>
+        </tapGestureRecognizer>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="iRU-iq-NXJ">
+            <connections>
+                <action selector="beginEditingGestureRecognized:" destination="-1" id="nEk-5G-Etx"/>
+            </connections>
+        </pongPressGestureRecognizer>
+        <tapGestureRecognizer enabled="NO" id="BBk-Io-thj">
+            <connections>
+                <action selector="endEditingGestureRecognized:" destination="-1" id="5cN-CR-zxt"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>

@@ -123,7 +123,7 @@ extension ViewController: UITableViewDelegate {
             
             if jobs[section].timespans.isEmpty {
                 jobs.remove(at: section)
-                tableView.deleteSections([section], with: .fade)
+                tableView.reloadData()
             } else {
                 if jobs[section].isRunning {
                     tableView.deleteRows(at: [indexPath], with: .fade)
@@ -138,6 +138,7 @@ extension ViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let section = indexPath.section
         let job = jobs[section]
         let timespan = job.timespans[indexPath.row]
@@ -145,6 +146,8 @@ extension ViewController: UITableViewDelegate {
         if timespan.status == .running {
             jobs[section].stop()
             tableView.reloadSections([section], with: .automatic)
+        } else {
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
     
@@ -161,14 +164,12 @@ extension ViewController: UITableViewDelegate {
         }
         
         let headerView = HeaderView()
-        headerView.plusButton.delegate = self
-        headerView.plusButton.section = section
+        headerView.delegate = self
+        headerView.section = section
         headerView.titleLabel.text = headerName
         
         return headerView
     }
-    
-    
 }
 
 // MARK: - IB Action
@@ -179,12 +180,29 @@ extension ViewController {
     }
 }
 
-// MARK: - Section Button Delegate
-extension ViewController: SectionButtonDelegate {
-    func sectionButtonPressed(_ sender: SectionButton) {
+// MARK: - Header View Delegate
+extension ViewController: HeaderViewDelegate {
+    func title(for section: Int?) -> String? {
+        guard let section = section else { return nil }
+        
+        let job = jobs[section]
+        let name = job.name
+        
+        return name
+    }
+    
+    func plusButtonPressed(_ sender: HeaderView) {
         guard let section = sender.section else { return }
         
         jobs[section].startNewTimespan()
+        tableView.reloadSections([section], with: .automatic)
+    }
+    
+    func textFieldEdited(_ sender: HeaderView) {
+        guard let section = sender.section else { return }
+        guard let name = sender.titleField.text else { return }
+        
+        jobs[section].name = name
         tableView.reloadSections([section], with: .automatic)
     }
 }
