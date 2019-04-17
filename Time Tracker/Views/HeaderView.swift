@@ -38,10 +38,11 @@ class HeaderView: UIView {
         singleTapRecognizer.isEnabled = false
         titleLabel.isHidden = false
         titleField.isHidden = true
-        delegate?.textFieldEdited(self)
+        delegate?.endEditingField(self)
     }
     
     @IBAction func beginEditingGestureRecognized(_ sender: Any) {
+        delegate?.beginEditingField(self)
         singleTapRecognizer.isEnabled = true
         titleLabel.isHidden = true
         titleField.isHidden = false

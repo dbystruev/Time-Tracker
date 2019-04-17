@@ -13,6 +13,7 @@ class ListViewController: UIViewController {
     // MARK: - IB Outlets
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     
     // MARK: - Stored Properties
     /// Permanet storage key for UserDefaults
@@ -21,11 +22,8 @@ class ListViewController: UIViewController {
     /// Manager to setup the cells
     let manager = CellManager()
     
-    /// Timer to update the table once a second
-    var timer: Timer!
-    
-    /// Flag to indicate that permanent storage data were just loaded
-    var justLoaded = false
+    /// Rect with header view which is being edited
+    var editedHeaderView: HeaderView?
     
     /// Jobs data source
     var jobs = [Job]() {
@@ -39,6 +37,12 @@ class ListViewController: UIViewController {
             }
         }
     }
+    
+    /// Flag to indicate that permanent storage data were just loaded
+    var justLoaded = false
+    
+    /// Timer to update the table once a second
+    var timer: Timer!
 }
 
 
@@ -72,8 +76,49 @@ extension ListViewController {
     }
 }
 
+// MARK: - Keyboard
+// https://github.com/dbystruev/Angular-Acceleration/blob/master/Angular%20Acceleration/ViewController.swift
+extension ListViewController {
+    @objc func keyboardWillResize(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] else { return }
+        guard let keyboardFrameValue = keyboardFrame as? NSValue else { return }
+        
+        let keyboardSize = keyboardFrameValue.cgRectValue
+        let constant: CGFloat
+        
+        if notification.name == UIResponder.keyboardWillShowNotification {
+            constant = keyboardSize.height
+        } else {
+            constant = 0
+        }
+        
+        tableViewBottomConstraint.constant = constant
+    }
+    
+    func setupKeyboard() {
+        let names: [NSNotification.Name] = [
+            UIResponder.keyboardWillShowNotification,
+            UIResponder.keyboardWillHideNotification
+        ]
+        
+        for name in names {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(keyboardWillResize),
+                name: name,
+                object: nil
+            )
+        }
+    }
+}
+
 // MARK: - Header View Delegate
 extension ListViewController: HeaderViewDelegate {
+    func beginEditingField(_ sender: HeaderView) {
+        editedHeaderView = sender
+    }
+    
     func controlButtonPressed(_ sender: HeaderView) {
         guard let section = sender.section else { return }
         guard section < jobs.count else { return }
@@ -89,9 +134,13 @@ extension ListViewController: HeaderViewDelegate {
         tableView.reloadSections([section], with: .automatic)
     }
     
-    func textFieldEdited(_ sender: HeaderView) {
-        guard let name = sender.titleField.text else { return }
+    func endEditingField(_ sender: HeaderView) {
+        if editedHeaderView == sender {
+            editedHeaderView = nil
+        }
+        
         guard let section = sender.section else { return }
+        guard let name = sender.titleField.text else { return }
         guard section < jobs.count else { return }
         
         jobs[section].name = name
@@ -236,8 +285,22 @@ extension ListViewController {
         
         navigationItem.leftBarButtonItem = editButtonItem
         
+        setupKeyboard()
+        
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             self.updateTable()
         }
+    }
+    
+    /// Scroll to edited cell when rotating device
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        guard let editedHeaderView = editedHeaderView else { return }
+        
+        let frame = editedHeaderView.titleField.bounds
+        let rect = editedHeaderView.titleField.convert(frame, to: tableView)
+        
+        tableView.scrollRectToVisible(rect, animated: true)
     }
 }

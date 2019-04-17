@@ -75,6 +75,7 @@
                     <connections>
                         <outlet property="addButton" destination="CfS-Jb-eUe" id="kye-f8-eqN"/>
                         <outlet property="tableView" destination="Kxn-6p-y5b" id="9w7-Xw-WhX"/>
+                        <outlet property="tableViewBottomConstraint" destination="BH3-k1-tFm" id="JF1-Qk-3iP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
