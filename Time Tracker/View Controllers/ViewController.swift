@@ -111,22 +111,6 @@ extension ViewController: UITableViewDataSource {
 
 // MARK: - Table View Delegate
 extension ViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let job = jobs[indexPath.section]
-        let timespan = job.timespans[indexPath.row]
-        
-        switch timespan.status {
-            
-        case .running:
-            jobs[indexPath.section].stop()
-            
-        case .stopped:
-            jobs[indexPath.section].startNewTimespan()
-        }
-        
-        tableView.reloadSections([indexPath.section], with: .automatic)
-    }
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         switch editingStyle {
@@ -141,13 +125,50 @@ extension ViewController: UITableViewDelegate {
                 jobs.remove(at: section)
                 tableView.deleteSections([section], with: .fade)
             } else {
-                tableView.deleteRows(at: [indexPath], with: .fade)
+                if jobs[section].isRunning {
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                } else {
+                    tableView.reloadSections([section], with: .fade)
+                }
             }
             
         default:
             break
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let section = indexPath.section
+        let job = jobs[section]
+        let timespan = job.timespans[indexPath.row]
+        
+        if timespan.status == .running {
+            jobs[section].stop()
+            tableView.reloadSections([section], with: .automatic)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let job = jobs[section]
+        var headerName = job.name
+        
+        if !job.isRunning {
+            headerName += " (\(job.formattedDuration))"
+        }
+        
+        let headerView = HeaderView()
+        headerView.plusButton.delegate = self
+        headerView.plusButton.section = section
+        headerView.titleLabel.text = headerName
+        
+        return headerView
+    }
+    
+    
 }
 
 // MARK: - IB Action
@@ -155,5 +176,15 @@ extension ViewController {
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         jobs.startNewJob()
         tableView.reloadData()
+    }
+}
+
+// MARK: - Section Button Delegate
+extension ViewController: SectionButtonDelegate {
+    func sectionButtonPressed(_ sender: SectionButton) {
+        guard let section = sender.section else { return }
+        
+        jobs[section].startNewTimespan()
+        tableView.reloadSections([section], with: .automatic)
     }
 }
