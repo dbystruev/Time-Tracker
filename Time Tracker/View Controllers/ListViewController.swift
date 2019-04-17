@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ListViewController.swift
 //  Time Tracker
 //
 //  Created by Denis Bystruev on 16/04/2019.
@@ -8,10 +8,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+/// Controls the first screen with the list of jobs
+class ListViewController: UIViewController {
+    // MARK: - IB Outlets
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     
+    // MARK: - Stored Properties
     /// Permanet storage key for UserDefaults
     let storageKey = "TimeTrackerKey"
     
@@ -36,28 +39,19 @@ class ViewController: UIViewController {
             }
         }
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let data = UserDefaults.standard.data(forKey: storageKey)
-        if let jobs = [Job](from: data) {
-            justLoaded = true
-            self.jobs = jobs
-        }
-        
-        navigationItem.leftBarButtonItem = editButtonItem
-        
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            self.updateTable()
-        }
+}
+
+
+// MARK: - IB Actions
+extension ListViewController {
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        jobs.startNewJob()
+        tableView.reloadData()
     }
-    
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        tableView.setEditing(editing, animated: animated)
-    }
-    
+}
+
+// MARK: - Custom Methods
+extension ListViewController {
     func updateTable() {
         if jobs.areRunning && !isEditing {
             var pathsToUpdate = [IndexPath]()
@@ -78,8 +72,62 @@ class ViewController: UIViewController {
     }
 }
 
+// MARK: - Header View Delegate
+extension ListViewController: HeaderViewDelegate {
+    func controlButtonPressed(_ sender: HeaderView) {
+        guard let section = sender.section else { return }
+        guard section < jobs.count else { return }
+        
+        let job = jobs[section]
+        
+        if job.isRunning {
+            jobs[section].stop()
+        } else {
+            jobs[section].startNewTimespan()
+        }
+        
+        tableView.reloadSections([section], with: .automatic)
+    }
+    
+    func textFieldEdited(_ sender: HeaderView) {
+        guard let name = sender.titleField.text else { return }
+        guard let section = sender.section else { return }
+        guard section < jobs.count else { return }
+        
+        jobs[section].name = name
+        tableView.reloadSections([section], with: .automatic)
+    }
+    
+    func title(for section: Int?) -> String? {
+        guard let section = section else { return nil }
+        guard section < jobs.count else { return nil }
+        
+        let job = jobs[section]
+        let name = job.name
+        
+        return name
+    }
+}
+
+// MARK: - Navigation
+extension ListViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "DetailViewControllerSegue" else { return }
+        guard let selectedIndexPath = tableView.indexPathForSelectedRow else { return }
+        
+        let section = selectedIndexPath.section
+        let job = jobs[section]
+        let timespanIndex = selectedIndexPath.row
+        
+        let detailViewController = segue.destination as! DetailViewController
+        detailViewController.navigationItem.title = job.name
+        detailViewController.job = job
+        detailViewController.timespanIndex = timespanIndex
+    }
+}
+
 // MARK: - Table View Data Source
-extension ViewController: UITableViewDataSource {
+extension ListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return jobs.count
     }
@@ -110,7 +158,7 @@ extension ViewController: UITableViewDataSource {
 }
 
 // MARK: - Table View Delegate
-extension ViewController: UITableViewDelegate {
+extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         switch editingStyle {
@@ -144,6 +192,10 @@ extension ViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNonzeroMagnitude
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
@@ -166,47 +218,26 @@ extension ViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - IB Action
-extension ViewController {
-    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        jobs.startNewJob()
-        tableView.reloadData()
-    }
-}
-
-// MARK: - Header View Delegate
-extension ViewController: HeaderViewDelegate {
-    func title(for section: Int?) -> String? {
-        guard let section = section else { return nil }
-        guard section < jobs.count else { return nil }
-        
-        let job = jobs[section]
-        let name = job.name
-        
-        return name
+// MARK: - UI View Controller
+extension ListViewController {
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.setEditing(editing, animated: animated)
     }
     
-    func controlButtonPressed(_ sender: HeaderView) {
-        guard let section = sender.section else { return }
-        guard section < jobs.count else { return }
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        let job = jobs[section]
-        
-        if job.isRunning {
-            jobs[section].stop()
-        } else {
-            jobs[section].startNewTimespan()
+        let data = UserDefaults.standard.data(forKey: storageKey)
+        if let jobs = [Job](from: data) {
+            justLoaded = true
+            self.jobs = jobs
         }
         
-        tableView.reloadSections([section], with: .automatic)
-    }
-    
-    func textFieldEdited(_ sender: HeaderView) {
-        guard let name = sender.titleField.text else { return }
-        guard let section = sender.section else { return }
-        guard section < jobs.count else { return }
+        navigationItem.leftBarButtonItem = editButtonItem
         
-        jobs[section].name = name
-        tableView.reloadSections([section], with: .automatic)
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            self.updateTable()
+        }
     }
 }

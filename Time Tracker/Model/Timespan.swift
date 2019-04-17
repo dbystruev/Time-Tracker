@@ -11,6 +11,14 @@ import Foundation
 /// Structure which defines the timespan with start and end time
 struct Timespan: Codable {
     
+    /// Coding Keys to match plist keys with property names
+    enum CodingKeys: String, CodingKey {
+        case status
+        case name
+        case startTime
+        case privateEndTime = "endTime"
+    }
+    
     /// Enum which defines the current status of a timespan
     ///
     /// - running: timespan is currently counting
@@ -29,8 +37,19 @@ struct Timespan: Codable {
     /// Timespan's start time
     var startTime: Date
     
+    /// Timespan's private end time
+    private var privateEndTime: Date
+    
     /// Timespan's end time
-    var endTime: Date
+    var endTime: Date {
+        get {
+            return isRunning ? Date() : privateEndTime
+        }
+        
+        set {
+            privateEndTime = newValue
+        }
+    }
     
     /// True if status is .running
     var isRunning: Bool {
@@ -50,7 +69,7 @@ struct Timespan: Codable {
         self.status = status
         self.name = name
         startTime = Date()
-        endTime = startTime
+        privateEndTime = startTime
     }
     
     /// Start this timespan
