@@ -13,7 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HeaderView" customModule="Time_Tracker" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="2JY-oz-6ZV"/>
-                <outlet property="plusButton" destination="NyY-W6-aLS" id="c9h-QG-vVZ"/>
+                <outlet property="controlButton" destination="NyY-W6-aLS" id="c9h-QG-vVZ"/>
                 <outlet property="singleTapRecognizer" destination="BBk-Io-thj" id="R20-MA-MZT"/>
                 <outlet property="titleField" destination="MZr-KZ-mbz" id="jUB-lK-lnc"/>
                 <outlet property="titleLabel" destination="2Uq-0o-mge" id="Hli-xq-BFh"/>
@@ -21,11 +21,11 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Uq-0o-mge">
-                    <rect key="frame" x="20" y="0.0" width="510" height="44"/>
+                    <rect key="frame" x="20" y="0.0" width="515" height="50"/>
                     <gestureRecognizers/>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                     <nil key="textColor"/>
@@ -35,16 +35,20 @@
                         <outletCollection property="gestureRecognizers" destination="iRU-iq-NXJ" appends="YES" id="3VT-lO-2Rd"/>
                     </connections>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NyY-W6-aLS">
-                    <rect key="frame" x="550" y="0.0" width="30" height="44"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                    <state key="normal" title="+"/>
+                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NyY-W6-aLS">
+                    <rect key="frame" x="555" y="12.5" width="25" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="NUA-Cm-Qne"/>
+                        <constraint firstAttribute="width" constant="25" id="YSU-LM-6Vh"/>
+                    </constraints>
+                    <state key="normal" image="resume"/>
+                    <state key="selected" image="pause"/>
                     <connections>
                         <action selector="plusButtonPressed:" destination="-1" eventType="touchUpInside" id="H3F-hO-ilE"/>
                     </connections>
                 </button>
                 <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MZr-KZ-mbz">
-                    <rect key="frame" x="20" y="8" width="510" height="28"/>
+                    <rect key="frame" x="20" y="8" width="515" height="34"/>
                     <gestureRecognizers/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -63,10 +67,9 @@
                 <constraint firstItem="MZr-KZ-mbz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="4c6-00-LdQ"/>
                 <constraint firstItem="2Uq-0o-mge" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="83h-Ka-OUt"/>
                 <constraint firstItem="MZr-KZ-mbz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="CqN-Ds-680"/>
+                <constraint firstItem="NyY-W6-aLS" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="IfP-Ny-3XA"/>
                 <constraint firstItem="NyY-W6-aLS" firstAttribute="leading" secondItem="MZr-KZ-mbz" secondAttribute="trailing" constant="20" id="SeY-Mk-KMc"/>
                 <constraint firstItem="2Uq-0o-mge" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="Spu-kX-WRb"/>
-                <constraint firstItem="NyY-W6-aLS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ZXb-6S-lcE"/>
-                <constraint firstAttribute="bottom" secondItem="NyY-W6-aLS" secondAttribute="bottom" id="itn-PW-Ep5"/>
                 <constraint firstItem="NyY-W6-aLS" firstAttribute="leading" secondItem="2Uq-0o-mge" secondAttribute="trailing" constant="20" id="jkl-Ma-YJ6"/>
                 <constraint firstAttribute="trailingMargin" secondItem="NyY-W6-aLS" secondAttribute="trailing" id="qMy-LC-aNM"/>
                 <constraint firstAttribute="bottom" secondItem="MZr-KZ-mbz" secondAttribute="bottom" constant="8" id="yek-Mp-RUe"/>
@@ -94,4 +97,8 @@
             </connections>
         </tapGestureRecognizer>
     </objects>
+    <resources>
+        <image name="pause" width="50" height="50"/>
+        <image name="resume" width="50" height="50"/>
+    </resources>
 </document>

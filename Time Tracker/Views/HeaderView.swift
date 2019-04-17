@@ -13,7 +13,7 @@ class HeaderView: UIView {
     @IBOutlet var contentView: HeaderView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleField: UITextField!
-    @IBOutlet weak var plusButton: UIButton!
+    @IBOutlet weak var controlButton: UIButton!
     
     var delegate: HeaderViewDelegate?
     var section: Int?
@@ -57,6 +57,6 @@ class HeaderView: UIView {
     }
     
     @IBAction func plusButtonPressed(_ sender: UIButton) {
-        delegate?.plusButtonPressed(self)
+        delegate?.controlButtonPressed(self)
     }
 }

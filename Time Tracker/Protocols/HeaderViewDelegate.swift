@@ -9,7 +9,7 @@
 import UIKit
 
 protocol HeaderViewDelegate {
-    func title(for section: Int?) -> String?
-    func plusButtonPressed(_ sender: HeaderView)
+    func controlButtonPressed(_ sender: HeaderView)
     func textFieldEdited(_ sender: HeaderView)
+    func title(for section: Int?) -> String?
 }
