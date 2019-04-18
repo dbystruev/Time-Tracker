@@ -123,7 +123,7 @@ extension ListViewController: HeaderViewDelegate {
     func headerView(_ headerView: HeaderView, didSelect section: Int) {
         let indexPath = IndexPath(row: 0, section: section)
         tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
-        performSegue(withIdentifier: "DetailViewControllerSegue", sender: nil)
+        performSegue(withIdentifier: "DetailViewControllerSectionSegue", sender: nil)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -169,17 +169,20 @@ extension ListViewController: HeaderViewDelegate {
 // MARK: - Navigation
 extension ListViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "DetailViewControllerSegue" else { return }
+        let allowedSegues = ["DetailViewControllerRowSegue", "DetailViewControllerSectionSegue"]
+        
+        guard let identifier = segue.identifier else { return }
+        guard allowedSegues.contains(identifier) else { return }
         guard let selectedIndexPath = tableView.indexPathForSelectedRow else { return }
         
         let section = selectedIndexPath.section
         let job = jobs[section]
-        let timespanIndex = selectedIndexPath.row
+        let selectedTimespan = identifier == "DetailViewControllerSectionSegue" ? nil : selectedIndexPath.row
         
         let detailViewController = segue.destination as! DetailViewController
         detailViewController.navigationItem.title = job.name
         detailViewController.job = job
-        detailViewController.timespanIndex = timespanIndex
+        detailViewController.selectedTimespan = selectedTimespan
     }
 }
 
