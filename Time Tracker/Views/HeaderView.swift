@@ -40,7 +40,7 @@ class HeaderView: UIView {
     
     func fieldEditingEnded() {
         isEditing = false
-        delegate?.endEditingField(self)
+        delegate?.headerView(self, endEditing: titleField)
     }
     
     func loadFromNib() {
@@ -52,9 +52,9 @@ class HeaderView: UIView {
     
     // MARK: - IB Actions
     @IBAction func beginEditingGestureRecognized(_ sender: Any) {
-        delegate?.beginEditingField(self)
+        delegate?.headerView(self, beginEditing: titleField)
         isEditing = true
-        titleField.text = delegate?.title(for: section) ?? ""
+        titleField.text = delegate?.headerView(titleFor: section) ?? titleField.text
     }
     
     @IBAction func editingEnded(_ sender: UITextField) {
@@ -62,14 +62,15 @@ class HeaderView: UIView {
     }
     
     @IBAction func plusButtonPressed(_ sender: UIButton) {
-        delegate?.controlButtonPressed(self)
+        delegate?.headerView(self, pressed: controlButton)
     }
     
     @IBAction func singleTapGestureRecognized(_ sender: UITapGestureRecognizer) {
         if isEditing {
             fieldEditingEnded()
         } else {
-            delegate?.didSelectHeader(self)
+            guard let section = section else { return }
+            delegate?.headerView(self, didSelect: section)
         }
     }
 }

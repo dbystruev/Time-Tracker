@@ -9,9 +9,9 @@
 import UIKit
 
 protocol HeaderViewDelegate {
-    func beginEditingField(_ sender: HeaderView)
-    func controlButtonPressed(_ sender: HeaderView)
-    func didSelectHeader(_ sender: HeaderView)
-    func endEditingField(_ sender: HeaderView)
-    func title(for section: Int?) -> String?
+    func headerView(_ headerView: HeaderView, beginEditing field: UITextField)
+    func headerView(_ headerView: HeaderView, didSelect section: Int)
+    func headerView(_ headerView: HeaderView, endEditing field: UITextField)
+    func headerView(_ headerView: HeaderView, pressed button: UIButton)
+    func headerView(titleFor section: Int?) -> String?
 }
