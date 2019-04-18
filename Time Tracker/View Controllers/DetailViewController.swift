@@ -37,15 +37,11 @@ extension DetailViewController {
         startTimeLabel.text = "Started: \(timespan.startTime.formatted)"
         
         if timespan.isRunning {
-            
             endTimeLabel.text = "Status: \(timespan.status)"
-            durationLabel.text = "Duration: \(timespan.formattedDuration) and counting"
-            
+            durationLabel.text = "Duration: \(timespan.duration.formatted) and counting"
         } else {
-            
             endTimeLabel.text = "Finished: \(timespan.endTime.formatted)"
-            durationLabel.text = "Duration: \(timespan.formattedDuration)"
-            
+            durationLabel.text = "Duration: \(timespan.duration.formatted)"
         }
     }
 }

@@ -15,13 +15,14 @@ class ListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     
-    // MARK: - Stored Properties
-    /// Permanet storage key for UserDefaults
-    let storageKey = "TimeTrackerKey"
-    
+    // MARK: - Stored Properties (Constants)
     /// Manager to setup the cells
     let manager = CellManager()
     
+    /// Permanet storage key for UserDefaults
+    let storageKey = "TimeTrackerKey"
+    
+    // MARK: - Stored Properties (Variables)
     /// Rect with header view which is being edited
     var editedHeaderView: HeaderView?
     
@@ -79,6 +80,22 @@ extension ListViewController {
 // MARK: - Keyboard
 // https://github.com/dbystruev/Angular-Acceleration/blob/master/Angular%20Acceleration/ViewController.swift
 extension ListViewController {
+    func addKeyboardObservers() {
+        let names: [NSNotification.Name] = [
+            UIResponder.keyboardWillShowNotification,
+            UIResponder.keyboardWillHideNotification
+        ]
+        
+        for name in names {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(keyboardWillResize),
+                name: name,
+                object: nil
+            )
+        }
+    }
+    
     @objc func keyboardWillResize(notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] else { return }
@@ -94,22 +111,6 @@ extension ListViewController {
         }
         
         tableViewBottomConstraint.constant = constant
-    }
-    
-    func setupKeyboard() {
-        let names: [NSNotification.Name] = [
-            UIResponder.keyboardWillShowNotification,
-            UIResponder.keyboardWillHideNotification
-        ]
-        
-        for name in names {
-            NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(keyboardWillResize),
-                name: name,
-                object: nil
-            )
-        }
     }
 }
 
@@ -132,6 +133,15 @@ extension ListViewController: HeaderViewDelegate {
         }
         
         tableView.reloadSections([section], with: .automatic)
+    }
+    
+    func didSelectHeader(_ sender: HeaderView) {
+        guard let section = sender.section else { return }
+        
+        let indexPath = IndexPath(row: 0, section: section)
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+        performSegue(withIdentifier: "DetailViewControllerSegue", sender: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func endEditingField(_ sender: HeaderView) {
@@ -193,17 +203,6 @@ extension ListViewController: UITableViewDataSource {
         let job = jobs[section]
         return job.timespans.count
     }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let job = jobs[section]
-        var headerName = job.name
-        
-        if !job.isRunning {
-            headerName += " (\(job.formattedDuration))"
-        }
-        
-        return headerName
-    }
 }
 
 // MARK: - Table View Delegate
@@ -235,9 +234,6 @@ extension ListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let section = indexPath.section
-//        let job = jobs[section]
-//        let timespan = job.timespans[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -254,7 +250,7 @@ extension ListViewController: UITableViewDelegate {
         var headerName = job.name
         
         if !job.isRunning {
-            headerName += " (\(job.formattedDuration))"
+            headerName += " (\(job.duration.formatted))"
         }
         
         let headerView = HeaderView()
@@ -283,9 +279,8 @@ extension ListViewController {
             self.jobs = jobs
         }
         
+        addKeyboardObservers()
         navigationItem.leftBarButtonItem = editButtonItem
-        
-        setupKeyboard()
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             self.updateTable()
@@ -298,8 +293,8 @@ extension ListViewController {
         
         guard let editedHeaderView = editedHeaderView else { return }
         
-        let frame = editedHeaderView.titleField.bounds
-        let rect = editedHeaderView.titleField.convert(frame, to: tableView)
+        let bounds = editedHeaderView.titleField.bounds
+        let rect = editedHeaderView.titleField.convert(bounds, to: tableView)
         
         tableView.scrollRectToVisible(rect, animated: true)
     }

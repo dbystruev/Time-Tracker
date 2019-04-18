@@ -11,12 +11,13 @@ import Foundation
 /// Structure which defines the timespan with start and end time
 struct Timespan: Codable {
     
+    // MARK: - Enums
     /// Coding Keys to match plist keys with property names
     enum CodingKeys: String, CodingKey {
-        case status
         case name
-        case startTime
         case privateEndTime = "endTime"
+        case startTime
+        case status
     }
     
     /// Enum which defines the current status of a timespan
@@ -28,18 +29,7 @@ struct Timespan: Codable {
         case stopped
     }
     
-    /// Timespan's current status
-    var status: Status
-    
-    /// Optional name of a timespan
-    var name: String?
-    
-    /// Timespan's start time
-    var startTime: Date
-    
-    /// Timespan's private end time
-    private var privateEndTime: Date
-    
+    // MARK: - Stored Properties
     /// Timespan's end time
     var endTime: Date {
         get {
@@ -51,9 +41,27 @@ struct Timespan: Codable {
         }
     }
     
+    /// Optional name of a timespan
+    var name: String?
+    
+    /// Timespan's private end time
+    private var privateEndTime: Date
+    
+    /// Timespan's start time
+    var startTime: Date
+    
+    /// Timespan's current status
+    var status: Status
+    
+    // MARK: - Computed Properties
+    /// Current duration of the timespan
+    var duration: TimeInterval {
+        return endTime.timeIntervalSince(startTime)
+    }
+    
     /// True if status is .running
     var isRunning: Bool {
-        if case .running = status {
+        if status == .running {
             return true
         } else {
             return false
@@ -74,7 +82,7 @@ struct Timespan: Codable {
     
     /// Start this timespan
     mutating func start() {
-        if case .stopped = status {
+        if status == .stopped {
             startTime = Date()
             status = .running
         }
@@ -83,17 +91,9 @@ struct Timespan: Codable {
     
     /// Stop this timespan
     mutating func stop() {
-        if case .running = status {
+        if status == .running {
             endTime = Date()
             status = .stopped
         }
-    }
-}
-
-// MARK: - Formatted Duration
-extension Timespan: FormattedDuration {
-    /// Current duration of the timespan
-    var duration: TimeInterval {
-        return endTime.timeIntervalSince(startTime)
     }
 }

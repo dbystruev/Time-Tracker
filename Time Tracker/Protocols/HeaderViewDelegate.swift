@@ -11,6 +11,7 @@ import UIKit
 protocol HeaderViewDelegate {
     func beginEditingField(_ sender: HeaderView)
     func controlButtonPressed(_ sender: HeaderView)
+    func didSelectHeader(_ sender: HeaderView)
     func endEditingField(_ sender: HeaderView)
     func title(for section: Int?) -> String?
 }

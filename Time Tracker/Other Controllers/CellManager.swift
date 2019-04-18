@@ -23,10 +23,10 @@ class CellManager {
             timespan.endTime = Date()
             formattedTime = "since \(formattedStartTime)"
         } else {
-            formattedTime = "(\(formattedStartTime) — \(formattedEndTime))"
+            formattedTime = "(\(formattedStartTime) … \(formattedEndTime))"
         }
         
-        cell.textLabel?.text = "\(timespan.formattedDuration) \(formattedTime)"
+        cell.textLabel?.text = "\(timespan.duration.formatted) \(formattedTime)"
         cell.detailTextLabel?.text = timespan.name
     }
 }

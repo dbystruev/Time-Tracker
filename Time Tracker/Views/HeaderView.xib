@@ -14,7 +14,8 @@
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="2JY-oz-6ZV"/>
                 <outlet property="controlButton" destination="NyY-W6-aLS" id="c9h-QG-vVZ"/>
-                <outlet property="singleTapRecognizer" destination="BBk-Io-thj" id="R20-MA-MZT"/>
+                <outlet property="doubleTapRecognizer" destination="xct-La-VkE" id="Evi-vN-dZN"/>
+                <outlet property="singleTapRecognizer" destination="rG2-E4-UgJ" id="3Ew-4P-QLK"/>
                 <outlet property="titleField" destination="MZr-KZ-mbz" id="jUB-lK-lnc"/>
                 <outlet property="titleLabel" destination="2Uq-0o-mge" id="Hli-xq-BFh"/>
             </connections>
@@ -77,7 +78,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outletCollection property="gestureRecognizers" destination="BBk-Io-thj" appends="YES" id="7Dd-hb-12c"/>
+                <outletCollection property="gestureRecognizers" destination="rG2-E4-UgJ" appends="YES" id="xUd-Pp-0K5"/>
             </connections>
             <point key="canvasLocation" x="228" y="-218"/>
         </view>
@@ -91,9 +92,9 @@
                 <action selector="beginEditingGestureRecognized:" destination="-1" id="nEk-5G-Etx"/>
             </connections>
         </pongPressGestureRecognizer>
-        <tapGestureRecognizer enabled="NO" id="BBk-Io-thj">
+        <tapGestureRecognizer id="rG2-E4-UgJ">
             <connections>
-                <action selector="endEditingGestureRecognized:" destination="-1" id="5cN-CR-zxt"/>
+                <action selector="singleTapGestureRecognized:" destination="-1" id="GrK-fz-1oB"/>
             </connections>
         </tapGestureRecognizer>
     </objects>

@@ -10,11 +10,18 @@ import Foundation
 
 /// Structure which defines a single job with multiple timespans
 struct Job: Codable {
+    // MARK: - Stored Properties
     /// Job's name
     var name: String
     
     /// Collection of job's timespans
     var timespans: [Timespan]
+    
+    // MARK: - Computed Properties
+    /// Current duration of the job = sum of durations of the timespans
+    var duration: TimeInterval {
+        return timespans.reduce(0) { $0 + $1.duration }
+    }
     
     /// True if at least one timespan is running
     var isRunning: Bool {
@@ -46,14 +53,6 @@ struct Job: Codable {
         for index in 0 ..< timespans.count {
             timespans[index].stop()
         }
-    }
-}
-
-// MARK: - Formatted Duration
-extension Job: FormattedDuration {
-    /// Current duration of the job = sum of durations of the timespans
-    var duration: TimeInterval {
-        return timespans.reduce(0) { $0 + $1.duration }
     }
 }
 
@@ -100,10 +99,5 @@ extension Array where Element == Job {
         for index in 0 ..< count {
             self[index].stop()
         }
-    }
-    
-    /// Remove jobs which have 
-    mutating func removeEmptyJobs() {
-        
     }
 }
