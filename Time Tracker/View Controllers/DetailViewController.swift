@@ -85,7 +85,8 @@ extension DetailViewController /*: UITableViewDataSource */ {
             title = "Job"
             
         case 1...:
-            title = "Timespan # \(selectedTimespan == nil ? section : selectedTimespan! + 1) of \(job.timespans.count)"
+            let timespanNumber = selectedTimespan == nil ? section : selectedTimespan! + 1
+            title = "Timespan # \(timespanNumber) of \(job.timespans.count)"
             
         default:
             title = nil

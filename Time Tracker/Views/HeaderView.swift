@@ -19,12 +19,7 @@ class HeaderView: UIView {
     
     // MARK: - Stored Properties
     var delegate: HeaderViewDelegate?
-    var isEditing = false {
-        didSet {
-            titleLabel.isHidden = isEditing
-            titleField.isHidden = !isEditing
-        }
-    }
+    var isEditing: Bool!
     var section: Int?
     
     // MARK: - Custom Methods
@@ -38,11 +33,6 @@ class HeaderView: UIView {
         loadFromNib()
     }
     
-    func fieldEditingEnded() {
-        isEditing = false
-        delegate?.headerView(self, endEditing: titleField)
-    }
-    
     func loadFromNib() {
         Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)
         addSubview(contentView)
@@ -50,24 +40,36 @@ class HeaderView: UIView {
         singleTapRecognizer.require(toFail: doubleTapRecognizer)
     }
     
+    func setEditing(_ editing: Bool) {
+        isEditing = editing
+        
+        if editing {
+            titleField.text = delegate?.headerView(titleFor: section) ?? titleLabel.text
+            delegate?.headerView(self, beginEditing: titleField)
+        } else {
+            delegate?.headerView(self, endEditing: titleField)
+        }
+        
+        titleLabel.isHidden = editing
+        titleField.isHidden = !editing
+    }
+    
     // MARK: - IB Actions
     @IBAction func beginEditingGestureRecognized(_ sender: Any) {
-        delegate?.headerView(self, beginEditing: titleField)
-        isEditing = true
-        titleField.text = delegate?.headerView(titleFor: section) ?? titleField.text
+        setEditing(true)
     }
     
     @IBAction func editingEnded(_ sender: UITextField) {
-        fieldEditingEnded()
+        setEditing(false)
     }
     
-    @IBAction func plusButtonPressed(_ sender: UIButton) {
+    @IBAction func controlButtonPressed(_ sender: UIButton) {
         delegate?.headerView(self, pressed: controlButton)
     }
     
     @IBAction func singleTapGestureRecognized(_ sender: UITapGestureRecognizer) {
         if isEditing {
-            fieldEditingEnded()
+            setEditing(false)
         } else {
             guard let section = section else { return }
             delegate?.headerView(self, didSelect: section)

@@ -11,6 +11,9 @@
 		693FBB90226688A000688730 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 693FBB8F226688A000688730 /* HeaderView.xib */; };
 		693FBB982267155000688730 /* HeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FBB972267155000688730 /* HeaderViewDelegate.swift */; };
 		693FBBBD2267578D00688730 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FBBBC2267578D00688730 /* DetailViewController.swift */; };
+		694D3F3A22705E7F009C7B76 /* ListViewController+HeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694D3F3922705E7F009C7B76 /* ListViewController+HeaderViewDelegate.swift */; };
+		694D3F3C227061BD009C7B76 /* ListViewController+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694D3F3B227061BD009C7B76 /* ListViewController+UIViewController.swift */; };
+		694D3F3E2270621F009C7B76 /* ListViewController+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694D3F3D2270621F009C7B76 /* ListViewController+UITableViewDelegate.swift */; };
 		6953B5602268864B00BC646A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6953B55F2268864A00BC646A /* README.md */; };
 		69547D96226596BD0025DA4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69547D95226596BD0025DA4B /* AppDelegate.swift */; };
 		69547D98226596BD0025DA4B /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69547D97226596BD0025DA4B /* ListViewController.swift */; };
@@ -29,6 +32,9 @@
 		693FBB8F226688A000688730 /* HeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		693FBB972267155000688730 /* HeaderViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewDelegate.swift; sourceTree = "<group>"; };
 		693FBBBC2267578D00688730 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		694D3F3922705E7F009C7B76 /* ListViewController+HeaderViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListViewController+HeaderViewDelegate.swift"; sourceTree = "<group>"; };
+		694D3F3B227061BD009C7B76 /* ListViewController+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListViewController+UIViewController.swift"; sourceTree = "<group>"; };
+		694D3F3D2270621F009C7B76 /* ListViewController+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListViewController+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		6953B55F2268864A00BC646A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		69547D92226596BD0025DA4B /* Time Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69547D95226596BD0025DA4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +61,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		694D3F3822705E45009C7B76 /* ListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				69547D97226596BD0025DA4B /* ListViewController.swift */,
+				694D3F3922705E7F009C7B76 /* ListViewController+HeaderViewDelegate.swift */,
+				694D3F3B227061BD009C7B76 /* ListViewController+UIViewController.swift */,
+				694D3F3D2270621F009C7B76 /* ListViewController+UITableViewDelegate.swift */,
+			);
+			path = ListViewController;
+			sourceTree = "<group>";
+		};
 		69547D89226596BD0025DA4B = {
 			isa = PBXGroup;
 			children = (
@@ -109,7 +126,7 @@
 		698C683C2265BF5F00FD7A2A /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				69547D97226596BD0025DA4B /* ListViewController.swift */,
+				694D3F3822705E45009C7B76 /* ListViewController */,
 				693FBBBC2267578D00688730 /* DetailViewController.swift */,
 			);
 			path = "View Controllers";
@@ -225,12 +242,15 @@
 			files = (
 				698C68462265EF9700FD7A2A /* Date+formatted.swift in Sources */,
 				69547DA92265979D0025DA4B /* Timespan.swift in Sources */,
+				694D3F3C227061BD009C7B76 /* ListViewController+UIViewController.swift in Sources */,
 				69547D98226596BD0025DA4B /* ListViewController.swift in Sources */,
 				69547D96226596BD0025DA4B /* AppDelegate.swift in Sources */,
 				69547DAB226597ED0025DA4B /* Job.swift in Sources */,
 				698C68402265C3B500FD7A2A /* CellManager.swift in Sources */,
 				69B29C3B2267AFE900D07699 /* TimeInterval+formatted.swift in Sources */,
 				693FBBBD2267578D00688730 /* DetailViewController.swift in Sources */,
+				694D3F3A22705E7F009C7B76 /* ListViewController+HeaderViewDelegate.swift in Sources */,
+				694D3F3E2270621F009C7B76 /* ListViewController+UITableViewDelegate.swift in Sources */,
 				693FBB8E2266888800688730 /* HeaderView.swift in Sources */,
 				693FBB982267155000688730 /* HeaderViewDelegate.swift in Sources */,
 			);
