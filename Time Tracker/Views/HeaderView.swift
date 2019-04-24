@@ -14,6 +14,7 @@ class HeaderView: UIView {
     @IBOutlet var doubleTapRecognizer: UITapGestureRecognizer!
     @IBOutlet var contentView: HeaderView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var controlButton: UIButton!
     
@@ -50,6 +51,7 @@ class HeaderView: UIView {
             delegate?.headerView(self, endEditing: titleField)
         }
         
+        detailLabel.isHidden = editing
         titleLabel.isHidden = editing
         titleField.isHidden = !editing
     }

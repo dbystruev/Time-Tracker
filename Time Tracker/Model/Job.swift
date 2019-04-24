@@ -40,10 +40,11 @@ struct Job: Codable {
     }
     
     /// Start new timespan
-    mutating func startNewTimespan() {
+    mutating func startNewTimespan(in section: Int) {
         // stop all timespans and create new timespan
         stop()
-        let timespan = Timespan(status: .running)
+        let name = "Task #\(section + 1).\(timespans.count + 1)"
+        let timespan = Timespan(named: name, status: .running)
         timespans.append(timespan)
     }
     
@@ -85,10 +86,12 @@ extension Array where Element == Job {
     mutating func startNewJob() {
         // create and start a new job
         if let lastJob = last, lastJob.timespans.isEmpty {
-            self[count - 1].startNewTimespan()
+            let section = count - 1
+            self[section].startNewTimespan(in: section)
         } else {
-            var job = Job(name: "Job # \(count + 1)")
-            job.startNewTimespan()
+            let section = count
+            var job = Job(name: "Job #\(section + 1)")
+            job.startNewTimespan(in: section)
             append(job)
         }
         

@@ -20,6 +20,9 @@ struct Timespan: Codable {
         case status
     }
     
+    /// Optional name of a timespan
+    var name: String?
+
     /// Enum which defines the current status of a timespan
     ///
     /// - running: timespan is currently counting
@@ -40,9 +43,6 @@ struct Timespan: Codable {
             privateEndTime = newValue
         }
     }
-    
-    /// Optional name of a timespan
-    var name: String?
     
     /// Timespan's private end time
     private var privateEndTime: Date
@@ -73,9 +73,9 @@ struct Timespan: Codable {
     /// - Parameters:
     ///   - status: timespan's status, .stopped by default
     ///   - name: optional name of the timespan's
-    init(status: Status = .stopped, name: String? = nil) {
-        self.status = status
+    init(named name: String? = nil, status: Status = .stopped) {
         self.name = name
+        self.status = status
         startTime = Date()
         privateEndTime = startTime
     }

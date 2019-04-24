@@ -44,7 +44,7 @@ extension ListViewController: HeaderViewDelegate {
         if job.isRunning {
             jobs[section].stop()
         } else {
-            jobs[section].startNewTimespan()
+            jobs[section].startNewTimespan(in: section)
         }
         
         tableView.reloadSections([section], with: .automatic)

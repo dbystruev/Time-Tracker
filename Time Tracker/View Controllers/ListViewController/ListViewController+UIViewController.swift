@@ -28,6 +28,9 @@ extension ListViewController {
         addKeyboardObservers()
         navigationItem.leftBarButtonItem = editButtonItem
         
+        tableView.estimatedSectionHeaderHeight = 50
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             self.updateTable()
         }

@@ -59,19 +59,10 @@ extension ListViewController {
 extension ListViewController {
     func updateTable() {
         if jobs.areRunning && !isEditing {
-            var pathsToUpdate = [IndexPath]()
-            
-            for (section, job) in jobs.enumerated() {
-                if job.isRunning {
-                    job.indexesOfRunningTimespans.forEach {
-                        let pathToUpdate = IndexPath(row: $0, section: section)
-                        pathsToUpdate.append(pathToUpdate)
-                    }
-                }
-            }
+            let sectionsToUpdate = IndexSet(jobs.enumerated().filter{ $0.element.isRunning }.map{ $0.offset })
             
             DispatchQueue.main.async {
-                self.tableView.reloadRows(at: pathsToUpdate, with: .automatic)
+                self.tableView.reloadSections(sectionsToUpdate, with: .none)
             }
         }
     }
@@ -131,25 +122,5 @@ extension ListViewController {
         detailViewController.navigationItem.title = job.name
         detailViewController.job = job
         detailViewController.selectedTimespan = selectedTimespan
-    }
-}
-
-// MARK: - Table View Data Source
-extension ListViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return jobs.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TimespanCell")!
-        let job = jobs[indexPath.section]
-        let timespan = job.timespans[indexPath.row]
-        manager.configure(cell, with: timespan)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let job = jobs[section]
-        return job.timespans.count
     }
 }

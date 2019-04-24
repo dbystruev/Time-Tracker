@@ -10,17 +10,13 @@ import UIKit
 
 class CellManager {
     func configure(_ headerView: HeaderView, with job: Job, inSection section: Int) {
-        var headerName = job.name
-        
-        if !job.isRunning {
-            headerName += " (\(job.duration.formatted))"
-        }
-        
         let isRunning = job.isRunning
+        
         headerView.contentView.backgroundColor = isRunning ? #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1) : #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         headerView.controlButton.isSelected = isRunning
+        headerView.detailLabel.text = job.duration.formatted
         headerView.section = section
-        headerView.titleLabel.text = headerName
+        headerView.titleLabel.text = job.name
         headerView.titleLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
         headerView.setEditing(headerView.isEditing)
@@ -44,7 +40,7 @@ class CellManager {
             formattedTime = "(\(formattedStartTime) … \(formattedEndTime))"
         }
         
-        cell.textLabel?.text = "\(timespan.duration.formatted) \(formattedTime)"
-        cell.detailTextLabel?.text = timespan.name
+        cell.textLabel?.text = timespan.name
+        cell.detailTextLabel?.text = "\(timespan.duration.formatted) \(formattedTime)"
     }
 }
