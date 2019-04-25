@@ -26,6 +26,7 @@
 		698C68462265EF9700FD7A2A /* Date+formatted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698C68452265EF9700FD7A2A /* Date+formatted.swift */; };
 		69B29C3B2267AFE900D07699 /* TimeInterval+formatted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B29C3A2267AFE900D07699 /* TimeInterval+formatted.swift */; };
 		69E6F3A1227083090025B398 /* ListViewController+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E6F3A0227083090025B398 /* ListViewController+UITableViewDataSource.swift */; };
+		69FF3AF22270D036002DD70F /* UIColor+constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FF3AF12270D036002DD70F /* UIColor+constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		698C68452265EF9700FD7A2A /* Date+formatted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+formatted.swift"; sourceTree = "<group>"; };
 		69B29C3A2267AFE900D07699 /* TimeInterval+formatted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+formatted.swift"; sourceTree = "<group>"; };
 		69E6F3A0227083090025B398 /* ListViewController+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListViewController+UITableViewDataSource.swift"; sourceTree = "<group>"; };
+		69FF3AF12270D036002DD70F /* UIColor+constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+constants.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 			children = (
 				698C68452265EF9700FD7A2A /* Date+formatted.swift */,
 				69B29C3A2267AFE900D07699 /* TimeInterval+formatted.swift */,
+				69FF3AF12270D036002DD70F /* UIColor+constants.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 			files = (
 				698C68462265EF9700FD7A2A /* Date+formatted.swift in Sources */,
 				69547DA92265979D0025DA4B /* Timespan.swift in Sources */,
+				69FF3AF22270D036002DD70F /* UIColor+constants.swift in Sources */,
 				69E6F3A1227083090025B398 /* ListViewController+UITableViewDataSource.swift in Sources */,
 				694D3F3C227061BD009C7B76 /* ListViewController+UIViewController.swift in Sources */,
 				69547D98226596BD0025DA4B /* ListViewController.swift in Sources */,

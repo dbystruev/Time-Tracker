@@ -11,7 +11,6 @@ import UIKit
 class HeaderView: UIView {
     // MARK: - IB Outlets
     @IBOutlet var singleTapRecognizer: UITapGestureRecognizer!
-    @IBOutlet var doubleTapRecognizer: UITapGestureRecognizer!
     @IBOutlet var contentView: HeaderView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
@@ -38,7 +37,6 @@ class HeaderView: UIView {
         Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)
         addSubview(contentView)
         contentView.frame = self.bounds
-        singleTapRecognizer.require(toFail: doubleTapRecognizer)
     }
     
     func setEditing(_ editing: Bool) {
@@ -57,10 +55,6 @@ class HeaderView: UIView {
     }
     
     // MARK: - IB Actions
-    @IBAction func beginEditingGestureRecognized(_ sender: Any) {
-        setEditing(true)
-    }
-    
     @IBAction func editingEnded(_ sender: UITextField) {
         setEditing(false)
     }

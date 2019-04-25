@@ -15,7 +15,6 @@
                 <outlet property="contentView" destination="iN0-l3-epB" id="2JY-oz-6ZV"/>
                 <outlet property="controlButton" destination="NyY-W6-aLS" id="c9h-QG-vVZ"/>
                 <outlet property="detailLabel" destination="YVK-Di-eEI" id="afJ-dq-GqX"/>
-                <outlet property="doubleTapRecognizer" destination="xct-La-VkE" id="Evi-vN-dZN"/>
                 <outlet property="singleTapRecognizer" destination="rG2-E4-UgJ" id="3Ew-4P-QLK"/>
                 <outlet property="titleField" destination="MZr-KZ-mbz" id="jUB-lK-lnc"/>
                 <outlet property="titleLabel" destination="2Uq-0o-mge" id="Hli-xq-BFh"/>
@@ -32,10 +31,6 @@
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
-                    <connections>
-                        <outletCollection property="gestureRecognizers" destination="xct-La-VkE" appends="YES" id="Ltx-lK-C1b"/>
-                        <outletCollection property="gestureRecognizers" destination="iRU-iq-NXJ" appends="YES" id="3VT-lO-2Rd"/>
-                    </connections>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVK-Di-eEI">
                     <rect key="frame" x="20" y="33" width="515" height="17"/>
@@ -92,16 +87,6 @@
             </connections>
             <point key="canvasLocation" x="228" y="-218"/>
         </view>
-        <tapGestureRecognizer numberOfTapsRequired="2" id="xct-La-VkE">
-            <connections>
-                <action selector="beginEditingGestureRecognized:" destination="-1" id="Vyl-wT-Wsu"/>
-            </connections>
-        </tapGestureRecognizer>
-        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="iRU-iq-NXJ">
-            <connections>
-                <action selector="beginEditingGestureRecognized:" destination="-1" id="nEk-5G-Etx"/>
-            </connections>
-        </pongPressGestureRecognizer>
         <tapGestureRecognizer id="rG2-E4-UgJ">
             <connections>
                 <action selector="singleTapGestureRecognized:" destination="-1" id="GrK-fz-1oB"/>

@@ -11,36 +11,36 @@ import UIKit
 class CellManager {
     func configure(_ headerView: HeaderView, with job: Job, inSection section: Int) {
         let isRunning = job.isRunning
+        let backgroundColor = isRunning ? UIColor.Header.Background.running : UIColor.Header.Background.stopped
+        let textColor = isRunning ? UIColor.Header.Text.running : UIColor.Header.Text.stopped
         
-        headerView.contentView.backgroundColor = isRunning ? #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1) : #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        headerView.contentView.backgroundColor = backgroundColor
         headerView.controlButton.isSelected = isRunning
         headerView.detailLabel.text = job.duration.formatted
+        headerView.detailLabel.textColor = textColor
         headerView.section = section
         headerView.titleLabel.text = job.name
-        headerView.titleLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        headerView.titleLabel.textColor = textColor
         
         headerView.setEditing(headerView.isEditing)
     }
     
     func configure(_ cell: UITableViewCell, with timespan: Timespan) {
-        var timespan = timespan
-        
+        let isRunning = timespan.status == .running
         let startTime = timespan.startTime
         let endTime = timespan.endTime
         
         let formattedStartTime = startTime.formatted
         let formattedEndTime = endTime.formatted(with: startTime)
-        let formattedTime: String
+        let formattedTime = isRunning ? "since \(formattedStartTime)" : "(\(formattedStartTime) … \(formattedEndTime))"
         
-        if timespan.status == .running {
-            cell.textLabel?.textColor = #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)
-            formattedTime = "since \(formattedStartTime)"
-        } else {
-            cell.textLabel?.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-            formattedTime = "(\(formattedStartTime) … \(formattedEndTime))"
-        }
+        let backgroundColor = isRunning ? UIColor.Cell.Background.running : UIColor.Cell.Background.stopped
+        let textColor = isRunning ? UIColor.Cell.Text.running : UIColor.Cell.Text.stopped
         
-        cell.textLabel?.text = timespan.name
+        cell.backgroundColor = backgroundColor
         cell.detailTextLabel?.text = "\(timespan.duration.formatted) \(formattedTime)"
+        cell.detailTextLabel?.textColor = textColor
+        cell.textLabel?.text = timespan.name
+        cell.textLabel?.textColor = textColor
     }
 }
