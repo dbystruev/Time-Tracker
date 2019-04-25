@@ -11,8 +11,10 @@ import Foundation
 extension TimeInterval {
     var formatted: String {
         let formatter = DateComponentsFormatter()
+        
         formatter.allowedUnits = [.day, .hour, .minute, .second]
         formatter.unitsStyle = .abbreviated
+        
         return formatter.string(from: self) ?? "\(self)"
     }
 }

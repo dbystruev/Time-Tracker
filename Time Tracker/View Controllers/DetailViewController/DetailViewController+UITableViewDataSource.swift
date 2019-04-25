@@ -1,5 +1,5 @@
 //
-//  DetailViewController.swift
+//  DetailViewController+UITableViewDataSource.swift
 //  Time Tracker
 //
 //  Created by Denis Bystruev on 17/04/2019.
@@ -7,16 +7,6 @@
 //
 
 import UIKit
-
-/// Controls the second screen with details of particular time span of a job
-class DetailViewController: UITableViewController {
-    // MARK: - Stored Properties
-    /// Job to show/change
-    var job: Job!
-    
-    /// Timespan's index to show/change
-    var selectedTimespan: Int?
-}
 
 // MARK: - Table View Data Source
 extension DetailViewController /*: UITableViewDataSource */ {

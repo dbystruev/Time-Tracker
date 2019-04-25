@@ -22,6 +22,11 @@
 		69547DA0226596C10025DA4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69547D9E226596C10025DA4B /* LaunchScreen.storyboard */; };
 		69547DA92265979D0025DA4B /* Timespan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69547DA82265979D0025DA4B /* Timespan.swift */; };
 		69547DAB226597ED0025DA4B /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69547DAA226597ED0025DA4B /* Job.swift */; };
+		697E7A1422718C6D00711F45 /* ListViewController+IBActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E7A1322718C6C00711F45 /* ListViewController+IBActions.swift */; };
+		697E7A1622718CBE00711F45 /* ListViewController+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E7A1522718CBD00711F45 /* ListViewController+UI.swift */; };
+		697E7A1822718CEB00711F45 /* ListViewController+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E7A1722718CEB00711F45 /* ListViewController+Keyboard.swift */; };
+		697E7A1A22718D2000711F45 /* ListViewController+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E7A1922718D2000711F45 /* ListViewController+Navigation.swift */; };
+		697E7A1D22718EEF00711F45 /* DetailViewController+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E7A1C22718EEF00711F45 /* DetailViewController+UITableViewDataSource.swift */; };
 		698C68402265C3B500FD7A2A /* CellManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698C683F2265C3B500FD7A2A /* CellManager.swift */; };
 		698C68462265EF9700FD7A2A /* Date+formatted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698C68452265EF9700FD7A2A /* Date+formatted.swift */; };
 		69B29C3B2267AFE900D07699 /* TimeInterval+formatted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B29C3A2267AFE900D07699 /* TimeInterval+formatted.swift */; };
@@ -47,6 +52,11 @@
 		69547DA1226596C10025DA4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69547DA82265979D0025DA4B /* Timespan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timespan.swift; sourceTree = "<group>"; };
 		69547DAA226597ED0025DA4B /* Job.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
+		697E7A1322718C6C00711F45 /* ListViewController+IBActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListViewController+IBActions.swift"; sourceTree = "<group>"; };
+		697E7A1522718CBD00711F45 /* ListViewController+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListViewController+UI.swift"; sourceTree = "<group>"; };
+		697E7A1722718CEB00711F45 /* ListViewController+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListViewController+Keyboard.swift"; sourceTree = "<group>"; };
+		697E7A1922718D2000711F45 /* ListViewController+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListViewController+Navigation.swift"; sourceTree = "<group>"; };
+		697E7A1C22718EEF00711F45 /* DetailViewController+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailViewController+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		698C683F2265C3B500FD7A2A /* CellManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellManager.swift; sourceTree = "<group>"; };
 		698C68452265EF9700FD7A2A /* Date+formatted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+formatted.swift"; sourceTree = "<group>"; };
 		69B29C3A2267AFE900D07699 /* TimeInterval+formatted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+formatted.swift"; sourceTree = "<group>"; };
@@ -70,6 +80,10 @@
 			children = (
 				69547D97226596BD0025DA4B /* ListViewController.swift */,
 				694D3F3922705E7F009C7B76 /* ListViewController+HeaderViewDelegate.swift */,
+				697E7A1322718C6C00711F45 /* ListViewController+IBActions.swift */,
+				697E7A1722718CEB00711F45 /* ListViewController+Keyboard.swift */,
+				697E7A1922718D2000711F45 /* ListViewController+Navigation.swift */,
+				697E7A1522718CBD00711F45 /* ListViewController+UI.swift */,
 				694D3F3B227061BD009C7B76 /* ListViewController+UIViewController.swift */,
 				69E6F3A0227083090025B398 /* ListViewController+UITableViewDataSource.swift */,
 				694D3F3D2270621F009C7B76 /* ListViewController+UITableViewDelegate.swift */,
@@ -128,11 +142,20 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		697E7A1B22718ED800711F45 /* DetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				693FBBBC2267578D00688730 /* DetailViewController.swift */,
+				697E7A1C22718EEF00711F45 /* DetailViewController+UITableViewDataSource.swift */,
+			);
+			path = DetailViewController;
+			sourceTree = "<group>";
+		};
 		698C683C2265BF5F00FD7A2A /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				694D3F3822705E45009C7B76 /* ListViewController */,
-				693FBBBC2267578D00688730 /* DetailViewController.swift */,
+				697E7A1B22718ED800711F45 /* DetailViewController */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -248,6 +271,7 @@
 			files = (
 				698C68462265EF9700FD7A2A /* Date+formatted.swift in Sources */,
 				69547DA92265979D0025DA4B /* Timespan.swift in Sources */,
+				697E7A1822718CEB00711F45 /* ListViewController+Keyboard.swift in Sources */,
 				69FF3AF22270D036002DD70F /* UIColor+constants.swift in Sources */,
 				69E6F3A1227083090025B398 /* ListViewController+UITableViewDataSource.swift in Sources */,
 				694D3F3C227061BD009C7B76 /* ListViewController+UIViewController.swift in Sources */,
@@ -256,10 +280,14 @@
 				69547DAB226597ED0025DA4B /* Job.swift in Sources */,
 				698C68402265C3B500FD7A2A /* CellManager.swift in Sources */,
 				69B29C3B2267AFE900D07699 /* TimeInterval+formatted.swift in Sources */,
+				697E7A1D22718EEF00711F45 /* DetailViewController+UITableViewDataSource.swift in Sources */,
 				693FBBBD2267578D00688730 /* DetailViewController.swift in Sources */,
 				694D3F3A22705E7F009C7B76 /* ListViewController+HeaderViewDelegate.swift in Sources */,
+				697E7A1622718CBE00711F45 /* ListViewController+UI.swift in Sources */,
 				694D3F3E2270621F009C7B76 /* ListViewController+UITableViewDelegate.swift in Sources */,
 				693FBB8E2266888800688730 /* HeaderView.swift in Sources */,
+				697E7A1422718C6D00711F45 /* ListViewController+IBActions.swift in Sources */,
+				697E7A1A22718D2000711F45 /* ListViewController+Navigation.swift in Sources */,
 				693FBB982267155000688730 /* HeaderViewDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

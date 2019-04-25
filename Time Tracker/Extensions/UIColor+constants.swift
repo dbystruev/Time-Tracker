@@ -34,6 +34,7 @@ extension UIColor {
     
     var inverted: UIColor {
         let zero = CGFloat(0)
+        
         var red = zero
         var green = zero
         var blue = zero

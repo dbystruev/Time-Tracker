@@ -11,23 +11,22 @@ import Foundation
 extension Date {
     var formatted: String {
         let formatter = DateFormatter()
+        
         formatter.locale = Locale.current
         formatter.dateStyle = .short
         formatter.timeStyle = .short
+        
         return formatter.string(from: self)
     }
     
     func formatted(with date: Date) -> String {
+        let isSameDay = Calendar.current.isDate(self, inSameDayAs: date)
         let formatter = DateFormatter()
+        
+        formatter.dateStyle = isSameDay ? .none : .short
         formatter.locale = Locale.current
-        
-        if Calendar.current.isDate(self, inSameDayAs: date) {
-            formatter.dateStyle = .none
-        } else {
-            formatter.dateStyle = .short
-        }
-        
         formatter.timeStyle = .short
+        
         return formatter.string(from: self)
     }
 }
